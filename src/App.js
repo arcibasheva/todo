@@ -4,6 +4,7 @@ import ItemForm from "./ItemForm"
 import ListItems from "./ListItems"
 
 const alphabet = "0123456789abcdefghiklmnopqrstvxyz"
+const FILTERS = [{name: 'all', value: 2}, {name: 'active', value: 0}, {name: 'done', value: 1}]
 
 class Todo extends Component {
     constructor(props) {
@@ -57,9 +58,9 @@ class Todo extends Component {
             <ItemForm onSubmit={this.addListItem}/>
             <ListItems list={filteredList} onDelete={this.deleteListItem} isDone={this.isItemDone}/>
             <p>Show:
-                <a href="#all" onClick={(e) => this.setFilter(e, 2)}>All</a>,
-                <a href="#active" onClick={(e) => this.setFilter(e, 0)}>Active</a>,
-                <a href="#done" onClick={(e) => this.setFilter(e, 1)}>Done</a>
+                {FILTERS.map(filter => <span key={filter.name} style={{margin: '0 5px'}}>
+                    <a href={`#${filter.name}`} onClick={(e) => this.setFilter(e, filter.value)}>{filter.name.charAt(0).toUpperCase() + filter.name.substring(1)}</a>,
+                </span>)}
             </p>
         </div>
     }
