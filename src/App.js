@@ -22,8 +22,7 @@ class Todo extends Component {
 
     addListItem = (item) => {
         const id = generate(alphabet, 4)
-        let newList = this.state.list
-        newList.push({id: id, item: item, done: false})
+        let newList = [...this.state.list, {id: id, item: item, done: false}]
         this.setState(state => ({
             list: newList
         }))
@@ -37,8 +36,8 @@ class Todo extends Component {
     }
 
     isItemDone = (id) => {
-        const list = this.state.list
-        let doneItem = this.state.list.find(item => item.id === id)
+        const list = [...this.state.list]
+        let doneItem = list.filter(item => item.id === id).pop()
         doneItem.done = !doneItem.done;
         this.setState(state => ({
             list: list
